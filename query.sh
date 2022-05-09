@@ -1,10 +1,9 @@
 #!/bin/sh
-echo "Enter Channel Name:"
-read q
-echo "Welcome ${q}!"
-wget -O yenitvyoutube "https://www.youtube.com/results?search_query=${q}+live"
-wget -O new "https://www.youtube.com/results?search_query=Channeltv+live"
-sed -i "s|videoId|\nvideoId|g" new
-grep -A0 "videoId" new | sed "s|,.*||g" | head -1 | sed "s|videoId\":\"||g" | sed "s|\"||g" > new_id
-cp new_id 0new_id
+while read C1 C2
+do
+wget -O "$C1" "https://www.youtube.com/results?search_query=$C1+&sp=EgJAAQ%253D%253D"
+sed -i "s|videoId|\nvideoId|g" "$C1"
+grep -A0 "videoId" "$C1" | sed "s|,.*||g" | head -1 | sed "s|videoId\":\"||g" | sed "s|\"||g" > "$C1"_id
+rm "$C1"
+done<db
 exit 0
